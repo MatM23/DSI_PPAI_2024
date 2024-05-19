@@ -17,6 +17,7 @@ class Vino():
             "notaDeCataBodega" : self.getNotaDeCataBodega(),
             "precioARS" : self.getPrecioARS()
         }
+
     def getPrecioARS(self):
         return self._precioARS
 
@@ -46,7 +47,6 @@ class Vino():
 
     def setAnada(self, valor):
         self._anada = valor
-
 
     def getNombre(self):
         return self._nombre
