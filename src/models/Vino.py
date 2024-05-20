@@ -1,5 +1,5 @@
-from models.BodegaModel import Bodega
-from models.MaridajeModel import Maridaje
+from Bodega import Bodega
+from Maridaje import Maridaje
 
 class Vino():
     def init(self, anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega, maridaje):
