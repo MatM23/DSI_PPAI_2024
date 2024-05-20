@@ -1,5 +1,7 @@
+from bodega import Bodega
+
 class Vino():
-    def init(self, anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS):
+    def init(self, anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega):
 
         self._nombre = nombre
         self._anada = anada
@@ -7,6 +9,7 @@ class Vino():
         self._imagenEtiqueta = imagenEtiqueta
         self._notaDeCataBodega = notaDeCataBodega
         self._precioARS = precioARS
+        self._bodega = bodega
 
     def toJSON(self):
         return {
@@ -55,4 +58,14 @@ class Vino():
         if not isinstance(valor, str):
             raise ValueError("El nombre debe ser una cadena")
         self._nombre = valor
+    
+    def getNombreBodega(self):
+        return self._bodega.getNombre()
+
+    def setBodega(self, bodega):
+        if not isinstance(bodega, Bodega):
+            raise TypeError("bodega debe ser una instancia de la clase Bodega")
+        self._bodega = bodega
+
+
 
