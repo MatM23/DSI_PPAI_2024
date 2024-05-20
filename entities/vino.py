@@ -1,7 +1,8 @@
 from bodega import Bodega
+from maridaje import Maridaje
 
 class Vino():
-    def init(self, anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega):
+    def init(self, anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega, maridaje):
 
         self._nombre = nombre
         self._anada = anada
@@ -10,6 +11,7 @@ class Vino():
         self._notaDeCataBodega = notaDeCataBodega
         self._precioARS = precioARS
         self._bodega = bodega
+        self._maridaje = []
 
     def toJSON(self):
         return {
@@ -18,7 +20,9 @@ class Vino():
             "fechaActualizacion" : self.getFechaActualizacion(),
             "imagenEtiqueta" : self.getImagenEtiqueta(),
             "notaDeCataBodega" : self.getNotaDeCataBodega(),
-            "precioARS" : self.getPrecioARS()
+            "precioARS" : self.getPrecioARS(),
+            "maridaje" : self.getMaridaje(),
+            "bodega" : self.getBodega()
         }
 
     def getPrecioARS(self):
@@ -66,6 +70,20 @@ class Vino():
         if not isinstance(bodega, Bodega):
             raise TypeError("bodega debe ser una instancia de la clase Bodega")
         self._bodega = bodega
+    
+    def getBodega(self):
+        return self._bodega
+
+    def getNombreMaridaje(self):
+        return self._maridaje.getNombre()
+
+    def setMaridaje(self, maridaje):
+        if not isinstance(maridaje, Maridaje):
+            raise TypeError("maridaje debe ser una instancia de la clase Maridaje")
+        self._maridaje.append(maridaje)
+    
+    def getMaridaje(self):
+        return self._maridaje
 
 
 
