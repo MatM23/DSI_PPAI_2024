@@ -1,2 +1,2 @@
-# DSI_PPAI_2024
-Proyecto práctico de aplicación integradora Bonvino 2024
+# Para correr el proyecto e instalar dependencias ejecutar
+# pip install -r requirements.text
