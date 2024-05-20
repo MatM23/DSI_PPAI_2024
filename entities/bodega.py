@@ -1,3 +1,6 @@
+from datetime import datetime
+from dateutil.relativedelta import *
+
 class Bodega():
     def init(self, nombre, descripcion, historia, fechaUltimaActualizacion, periodoActualizacion):
 
@@ -49,3 +52,6 @@ class Bodega():
 
     def setHistoria(self, valor):
         self._historia = valor
+
+    def esParaActualizar(self, fechaActual):
+        fechaFutura = datetime.now() + relativedelta(mes=self.getPeriodoActualizacion())
