@@ -66,9 +66,9 @@ class Gestor():
         bodega = Bodega(filaBaseDeDatosBodega[0], filaBaseDeDatosBodega[1], filaBaseDeDatosBodega[2], filaBaseDeDatosBodega[3], filaBaseDeDatosBodega[4], filaBaseDeDatosBodega[5])
         vinosActualizar = []
         for vino in self.actualizaciones:
-            if bodega.tieneVino(vino) == True:
+            if bodega.tieneVino(vino.getNombre()) == True:
                 vinosActualizar.append(vino)
-            
+        
         conn.close()
         return vinosActualizar
     

@@ -6,6 +6,7 @@ def inicializarBase():
     cursor = conexion.cursor()
 
     cursor.execute("DELETE FROM bodegas")
+    cursor.execute("DELETE FROM vinos")
 
     # Crear las tablas en la base de datos en memoria
     cursor.execute('''CREATE TABLE IF NOT EXISTS bodegas (
@@ -87,35 +88,35 @@ def inicializarBase():
     # Insertar datos de ejemplo en la base de datos en memoria
     # BODEGAS
     cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)",
-                    ('Viñedos', 'Bodega familiar dedicada a la producción de vinos artesanales.', datetime(2024,5,19).date(), 60, 'Fundada en 1980 por la familia García, Los Viñedos ha sido reconocida por sus vinos de alta calidad.', 'Trivento Reserva,Garnacha Rosé,Chardonnay Premium'))
+                    ('Viñedos', 'Bodega familiar dedicada a la producción de vinos artesanales.', datetime(2024,5,19).date(), 60, 'Fundada en 1980 por la familia García, Los Viñedos ha sido reconocida por sus vinos de alta calidad.', 'GarnachaRosé,ChardonnayPremium'))
     
     cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('Olivo', 'Bodega ecológica comprometida con la sostenibilidad y el medio ambiente.', datetime(2024,4,20).date(), 90, 'Inaugurada en 1995, El Olivo se destaca por su enfoque en la producción de vinos orgánicos.', 'Monastrell Casa Cisca,Garnacha Rosé,Merlot Roble Viejo'))
+               ('Olivo', 'Bodega ecológica comprometida con la sostenibilidad y el medio ambiente.', datetime(2024,4,20).date(), 90, 'Inaugurada en 1995, El Olivo se destaca por su enfoque en la producción de vinos orgánicos.', 'MonastrellCasaCisca,GarnachaRosé,MerlotRobleViejo'))
     
     cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('Montaña', 'Bodega boutique situada en las montañas, especializada en vinos de altura.', datetime(2023,3,10).date(), 90, 'Desde 2002, La Montaña ha cautivado a los amantes del vino con su singularidad y carácter.', 'Malbec de Altura,Syrah Reserva Especial,Mencia Cepas Viejas'))
+               ('Montaña', 'Bodega boutique situada en las montañas, especializada en vinos de altura.', datetime(2023,3,10).date(), 90, 'Desde 2002, La Montaña ha cautivado a los amantes del vino con su singularidad y carácter.', 'MalbecdeAltura,SyrahReservaEspecial,MenciaCepasViejas'))
     
     cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('Roble', 'Bodega tradicional con más de un siglo de historia en la elaboración de vinos tintos.', datetime(2024,2,5).date(), 30, 'Desde 1890, ha sido un referente en la producción de Malbec y Cabernet Sauvignon.', 'Syrah Reserva Especial,Malbec de Altura,Merlot Roble Viejo'))
+               ('Roble', 'Bodega tradicional con más de un siglo de historia en la elaboración de vinos tintos.', datetime(2024,2,5).date(), 30, 'Desde 1890, ha sido un referente en la producción de Malbec y Cabernet Sauvignon.', 'Trivento,SyrahReservaEspecial,MalbecdeAltura,MerlotRobleViejo'))
     
 
     # VINOS
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Trivento Reserva', 2000, datetime(2024,12,16).date(), 'imagen.jpg', 2550, 8, 'Viñedos', 'Papas', 'Varietal 1'))
+                   ('Trivento', 2000, datetime(2024,12,16).date(), 'imagen.jpg', 2550, 8, 'Roble', 'Papas', 'Varietal 1'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Garnacha Rosé', 2002, datetime(2024,7,15).date(), 'imagen.jpg', 5000, 10,'Viñedos', 'Carne', 'Varietal 4'))
+                   ('GarnachaRosé', 2002, datetime(2024,7,15).date(), 'imagen.jpg', 5000, 10,'Viñedos', 'Carne', 'Varietal 4'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Chardonnay Premium', 1999, datetime(2024,5,14).date(), 'imagen.jpg', 1500, 4,'Olivo', 'Empanadas', 'Varietal 7'))
+                   ('ChardonnayPremium', 1999, datetime(2024,5,14).date(), 'imagen.jpg', 1500, 4,'Olivo', 'Empanadas', 'Varietal 7'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Syrah Reserva Especial', 2010, datetime(2024,1,13).date(), 'imagen.jpg', 4500, 7,'Olivo', 'Pescado', 'Varietal 3'))
+                   ('SyraReservaEspecial', 2010, datetime(2024,1,13).date(), 'imagen.jpg', 4500, 7,'Olivo', 'Pescado', 'Varietal 3'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Merlot Roble Viejo', 2010, datetime(2024,6,12).date(), 'imagen.jpg', 3500, 1,'Montaña', 'Pastas', 'Varietal 2'))
+                   ('MerlotRobleViejo', 2010, datetime(2024,6,12).date(), 'imagen.jpg', 3500, 1,'Montaña', 'Pastas', 'Varietal 2'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Mencia Cepas Viejas', 2009, datetime(2024,3,11).date(), 'imagen.jpg', 3000, 7,'Montaña', 'Carne', 'Varietal 5'))
+                   ('MenciaCepasViejas', 2009, datetime(2024,3,11).date(), 'imagen.jpg', 3000, 7,'Montaña', 'Carne', 'Varietal 5'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Monastrell Casa Cisca ', 2014, datetime(2024,3,10).date(), 'imagen.jpg', 1000, 6,'Roble', 'Pescado', 'Varietal 6'))
+                   ('MonastrellCasaCisca', 2014, datetime(2024,3,10).date(), 'imagen.jpg', 1000, 6,'Roble', 'Pescado', 'Varietal 6'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Malbec de Altura', 1998, datetime(2024,5,9).date(), 'imagen.jpg', 5000, 10,'Roble', 'Pastas', 'Varietal 1'))
+                   ('MalbecdeAltura', 1998, datetime(2024,5,9).date(), 'imagen.jpg', 5000, 10,'Roble', 'Pastas', 'Varietal 1'))
     
     #MARIDAJES
     cursor.execute("INSERT INTO maridaje (nombre, descripcion) VALUES (?,?)",
