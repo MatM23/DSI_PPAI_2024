@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bon-Vino</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse; 
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+        th, td{
+            color: white;            
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            border: 2px solid #461f19;
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            color: white;            
+            background-color: #4b0f04;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        td {
+            color: black;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .header {
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            background-color: #490710;
+            text-align: center;
+            margin-bottom: 0px;
+        }
+        .header img {
+            background-color: #490710;
+            max-width: 500px;
+        }
+        footer {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            background-color: #490710;
+            text-align: center;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="img/logo2.jpg" alt="Responsive Image">
+        </div>
+            <h1 style="color: rgb(70, 11, 11); font-size: 36px; text-align: center; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; margin-top: 20px; margin-bottom: 20px;">
+                BIENVENIDO
+            </h1>
+        </h1>
+        <div style="text-align: center; margin-top: 5">
+            <button id="mostrarBodegas" type="button" class="btn btn-outline-secondary" style="background-color: 490710; margin-bottom: 20px" onclick="importarActVinosBodega()">IMPORTAR ACTUALIZACIONES</button>
+        </div>
+    <div id="tableContainer"></div>
+    <div style="text-align: center;">
+        <button id="actualizarBodega" type="button" class="btn btn-outline-secondary" style="background-color: 490710; margin-bottom: 20px; display: none;" onclick="obtenerActualizacionesBodega()">ACTUALIZAR</button>
+    </div>
+
+    <script>
+        document.getElementById('mostrarBodegas').addEventListener('click', function() {
+            const objects = [
+                { bodega: 'Bodega 1'},
+                { bodega: 'Bodega 2'},
+                { bodega: 'Bodega 3'}
+            ];
+
+            const tableContainer = document.getElementById('tableContainer');
+            let tableHTML = '<table style="margin: 5 auto;">';
+            tableHTML += `<tr>
+                <th></th>
+                <th>Bodega</th>
+                </tr>`;
+
+            objects.forEach(obj => {
+                tableHTML += `<tr>
+                    <td><input class="form-check-input" type="radio" name="opcion" id="seleccionBodega" style="position: center"></td>
+                    <td>${obj.bodega}</td>
+                    </tr>`;
+            });
+
+            tableHTML += '</table>';
+            tableContainer.innerHTML = tableHTML;
+
+            // Mostrar el botón al seleccionar un radio
+            const radios = document.querySelectorAll('input[name="opcion"]');
+            const guardarCambiosBtn = document.getElementById('guardarCambios');
+            radios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    guardarCambiosBtn.style.display = 'inline-block';
+                });
+            });
+
+        });
+    </script>
+    <!-- hacemos la conexion a scripts.py-->
+    <script src="scripts.py"></script>
+</body>
+
+<footer>
+    <p>© 2024 Bon-Vino. Todos los derechos reservados.</p>
+</footer>
+
+</html>

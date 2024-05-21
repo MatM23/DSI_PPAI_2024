@@ -86,27 +86,16 @@ def inicializarBase():
     # BODEGAS
     cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
                ('BodegaCentral', 'oishfs', datetime(2024, 3, 19).date(), 4, 'hola', 'Vino Tinto'))
+    
     cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaCentral', 'oishfs', datetime(2024, 2, 19).date(), 4, 'hola', 'Vino Tinto'))
+               ('BodegaEste', 'oishfs', datetime(2024, 2, 19).date(), 4, 'hola', 'Vino Tinto'))
+    
     cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaCentral', 'oishfs', datetime(2024, 1, 19).date(), 4, 'hola', 'Vino Tinto'))
+               ('BodegaOeste', 'oishfs', datetime(2024, 1, 19).date(), 4, 'hola', 'Vino Tinto'))
+    
     cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaCentral', 'oishfs', datetime(2024, 5, 19).date(), 6, 'hola', 'Vino Tinto'))
-    cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaCentral', 'oishfs', datetime(2023, 7, 19).date(), 8, 'hola', 'Vino Tinto'))
-    cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaCentral', 'oishfs', datetime(2024, 1, 25).date(), 4, 'hola', 'Vino Tinto'))
-    cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaCentral', 'oishfs', datetime(2024, 5, 1).date(), 1, 'hola', 'Vino Tinto'))
-    cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaCentral', 'oishfs', datetime(2024, 3, 3).date(), 4, 'hola', 'Vino Tinto'))
-    cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaCentral', 'oishfs', datetime(2024, 5, 19).date(), 2, 'hola', 'Vino Tinto'))
-    cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaCentral', 'oishfs', datetime(2024, 5, 19).date(), 3, 'hola', 'Vino Tinto'))
-    cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaCentral', 'oishfs', datetime(2024, 5, 19).date(), 5, 'hola', 'Vino Tinto'))
-
+               ('BodegaSur', 'oishfs', datetime(2024, 5, 19).date(), 6, 'hola', 'Vino Tinto'))
+    
 
     # VINOS
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
@@ -114,17 +103,17 @@ def inicializarBase():
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
                    ('Vino tinto', 2024, datetime(2024,7,15).date(), 'imagen.jpg', 50, 10,'BodegaCentral', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,5,14).date(), 'imagen.jpg', 150, 4,'BodegaCentral', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,5,14).date(), 'imagen.jpg', 150, 4,'BodegaSur', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,1,13).date(), 'imagen.jpg', 450, 7,'BodegaCentral', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,1,13).date(), 'imagen.jpg', 450, 7,'BodegaEste', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,6,12).date(), 'imagen.jpg', 350, 1,'BodegaCentral', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,6,12).date(), 'imagen.jpg', 350, 1,'BodegaSur', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,3,11).date(), 'imagen.jpg', 300, 7,'BodegaCentral', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,3,11).date(), 'imagen.jpg', 300, 7,'BodegaOeste', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,3,10).date(), 'imagen.jpg', 100, 6,'BodegaCentral', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,3,10).date(), 'imagen.jpg', 100, 6,'BodegaOeste', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,5,9).date(), 'imagen.jpg', 500, 10,'BodegaCentral', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,5,9).date(), 'imagen.jpg', 500, 10,'BodegaEste', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
                    ('Vino tinto', 2024, datetime(2024,6,8).date(), 'imagen.jpg', 400, 4,'BodegaCentral', 'Papas', 'Malbec'))
     
