@@ -1,8 +1,11 @@
-from Bodega import Bodega
-from Maridaje import Maridaje
+from models import Bodega
+from models import Maridaje
+from dateutil.relativedelta import *
+from models import Varietal
 
 class Vino():
-    def init(self, anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega, maridaje):
+
+    def init(self, anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega, maridaje, varietal):
         self._nombre = nombre
         self._anada = anada
         self._fechaActualizacion = fechaActualizacion
@@ -11,6 +14,9 @@ class Vino():
         self._precioARS = precioARS
         self._bodega = bodega
         self._maridaje = []
+        self.setMaridaje(maridaje)
+        self._varietal = []
+        self.setVarietal(varietal)
 
     def toJSON(self):
         return {
@@ -21,9 +27,11 @@ class Vino():
             "notaDeCataBodega" : self.getNotaDeCataBodega(),
             "precioARS" : self.getPrecioARS(),
             "maridaje" : self.getMaridaje(),
-            "bodega" : self.getBodega()
+            "bodega" : self.getBodega(),
+            "varietal" : self.getVarietal()
         }
-
+    
+    # Atributos propios de VINO
     def getPrecioARS(self):
         return self._precioARS
 
@@ -56,15 +64,27 @@ class Vino():
 
     def getNombre(self):
         return self._nombre
-
+    
     def setNombre(self, valor):
         if not isinstance(valor, str):
             raise ValueError("El nombre debe ser una cadena")
         self._nombre = valor
-    
-    def getBodega(self):
-        return self._bodega
 
+    # funcion para saber si el vino es de una bodega enviada por parametro
+    def esDeBodega(self, nombreDeBodegaABuscar): 
+        if nombreDeBodegaABuscar == self._bodega.getNombre():
+            return True
+        return False
+    
+    # funcion para saber si el vino debe actualizarse, comparando fecha actual y fecha actualizacion
+    def esActualizable(self, fechaActual):
+        fechaActualizacion = self.getFechaActualizacion()
+        if fechaActual > fechaActualizacion:
+            return True
+        return False
+    
+    # Relaciones con otras clases
+    # Relacion con Bodega
     def getNombreBodega(self):
         return self._bodega.getNombre()
 
@@ -72,14 +92,47 @@ class Vino():
         if not isinstance(bodega, Bodega):
             raise TypeError("bodega debe ser una instancia de la clase Bodega")
         self._bodega = bodega
+
+    def getBodega(self):
+        return self._bodega
     
-    def getMaridaje(self):
-        return self._maridaje
-    
-    def getNombreMaridaje(self):
-        return self._maridaje.getNombre()
+    # Relacion con maridaje
+    def getNombreMaridaje(self, nombre):
+        for maridaje in self._maridaje:
+            if maridaje.getNombre() == nombre:
+                return maridaje
+        return None 
+        
 
     def setMaridaje(self, maridaje):
         if not isinstance(maridaje, Maridaje):
             raise TypeError("maridaje debe ser una instancia de la clase Maridaje")
         self._maridaje.append(maridaje)
+
+    def getMaridaje(self):
+        return self._maridaje
+    
+    # Relacion con Varietal
+    def setVarietal(self, varietal):
+        if not isinstance(varietal, Varietal):
+            raise TypeError("varietal debe ser una instancia de la clase Varietal")
+        self._varietal.append(varietal)
+
+    def getVarietal(self):
+        return self._varietal
+
+    def getNombreVarietal(self, nombre):
+        for varietal in self._varietal:
+            if varietal.getNombre() == nombre:
+                return varietal
+        return None
+    
+    def new(anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega, maridaje, varietal):
+       vino = Vino()
+       vino.init(anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega, maridaje, varietal)
+       return vino
+
+    def crearVarietal(descripcion, porcentajeComposicion):
+        varietal = Varietal.new(descripcion, porcentajeComposicion)
+        return varietal
+
