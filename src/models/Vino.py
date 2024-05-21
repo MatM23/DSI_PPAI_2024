@@ -2,9 +2,10 @@ from models import Bodega
 from models import Maridaje
 from dateutil.relativedelta import *
 from models import Varietal
+from database.db_sqlite import getConexion
 
 class Vino():
-    def __init__(self, anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega, maridaje, varietal):
+    def __init__(self, nombre, anada, fechaActualizacion, imagenEtiqueta, notaDeCataBodega, precioARS, bodega, maridaje, varietal):
 
         self._nombre = nombre
         self._anada = anada
@@ -70,10 +71,18 @@ class Vino():
 
     # funcion para saber si el vino es de una bodega enviada por parametro
     def esDeBodega(self, nombreDeBodegaABuscar): 
-        if nombreDeBodegaABuscar == self._bodega.getNombre():
+        conn = getConexion()
+        cursor = conn.cursor()
+        stringBodega = self.getBodega()
+    
+        filaBaseDatosBodega= cursor.execute("SELECT nombre, descripcion, historia, fechaUltimaActualizacion, periodoActualizacion, vinosNombres FROM bodegas WHERE nombre=?", (stringBodega,)).fetchone()
+        bodega = Bodega.Bodega(filaBaseDatosBodega[0], filaBaseDatosBodega[1], filaBaseDatosBodega[2], filaBaseDatosBodega[3], filaBaseDatosBodega[4], filaBaseDatosBodega[5])
+        conn.close()
+        if nombreDeBodegaABuscar == bodega.getNombre():
+            
             return True
         return False
-    
+
     # funcion para saber si el vino debe actualizarse, comparando fecha actual y fecha actualizacion
     def esActualizable(self, fechaActual):
         fechaActualizacion = self.getFechaActualizacion()
@@ -83,12 +92,7 @@ class Vino():
     
     # Relaciones con otras clases
     # Relacion con Bodega
-    def getNombreBodega(self):
-        return self._bodega.getNombre()
-
     def setBodega(self, bodega):
-        if not isinstance(bodega, Bodega):
-            raise TypeError("bodega debe ser una instancia de la clase Bodega")
         self._bodega = bodega
 
     def getBodega(self):

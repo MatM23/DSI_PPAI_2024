@@ -19,7 +19,7 @@ def importarActVinosBodega(): # Funcion para obtener las bodegas que necesitan a
     return jsonify(bodegas)
 
 @main.route('/bodega/actualizables/<nombreBodega>/vinos')
-def obtenerActualizacionesBodega(): # Funcion para obtener las actualizaciones de la bodega seleccionada
-    nombreBodega = request.args.get('nombreBodega')
-    vinos = GestorImportarActBodega.obtenerActualizacionesBodega(nombreBodega)
+def obtenerActualizacionesBodega(nombreBodega): # Funcion para obtener las actualizaciones de la bodega seleccionada
+    print(nombreBodega)
+    vinos = gestor.obtenerActualizacionesBodega(nombreBodega)
     return jsonify(vinos)
