@@ -1,7 +1,7 @@
-from models.TipoUva import TipoUva
+from models import TipoUva
 
 class Varietal():
-    def init(self, descripcion, porcentajeComposicion):
+    def __init__(self, descripcion, porcentajeComposicion):
 
         self._descripcion = descripcion
         self._porcentajeComposicion = porcentajeComposicion

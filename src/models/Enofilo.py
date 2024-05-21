@@ -4,7 +4,7 @@ from models import Vino
 
 
 class Enofilo():
-    def init(self, nombre, apellido, imagenPerfil, siguiendo, usuario, vino):
+    def __init__(self, nombre, apellido, imagenPerfil, siguiendo, usuario, vino):
 
         self._nombre = nombre
         self._apellido = apellido

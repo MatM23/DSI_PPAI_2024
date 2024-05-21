@@ -60,51 +60,26 @@
             </h1>
         </h1>
         <div style="text-align: center; margin-top: 5">
-            <button id="mostrarBodegas" type="button" class="btn btn-outline-secondary" style="background-color: 490710; margin-bottom: 20px" onclick="importarActVinosBodega()">IMPORTAR ACTUALIZACIONES</button>
+            <button id="mostrarBodegas" onclick="importarActVinosBodega()" type="button" class="btn btn-outline-secondary" style="background-color: 490710; margin-bottom: 20px">IMPORTAR ACTUALIZACIONES</button>
         </div>
-    <div id="tableContainer"></div>
+        <div class="container" style="margin-top: 80px">
+            <table class="table table-bordered border-primary table-striped" style="margin: 5 auto;">
+                <thead>
+                    <tr>
+                        <th scope="col">SELECCIONE</th>
+                        <th scope="col">BODEGA</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-bodegas">
+                    <!-- Completaremos esta tabla usando fetch -->
+                </tbody>
+            </table>
+        </div>
     <div style="text-align: center;">
         <button id="actualizarBodega" type="button" class="btn btn-outline-secondary" style="background-color: 490710; margin-bottom: 20px; display: none;" onclick="obtenerActualizacionesBodega()">ACTUALIZAR</button>
     </div>
-
-    <script>
-        document.getElementById('mostrarBodegas').addEventListener('click', function() {
-            const objects = [
-                { bodega: 'Bodega 1'},
-                { bodega: 'Bodega 2'},
-                { bodega: 'Bodega 3'}
-            ];
-
-            const tableContainer = document.getElementById('tableContainer');
-            let tableHTML = '<table style="margin: 5 auto;">';
-            tableHTML += `<tr>
-                <th></th>
-                <th>Bodega</th>
-                </tr>`;
-
-            objects.forEach(obj => {
-                tableHTML += `<tr>
-                    <td><input class="form-check-input" type="radio" name="opcion" id="seleccionBodega" style="position: center"></td>
-                    <td>${obj.bodega}</td>
-                    </tr>`;
-            });
-
-            tableHTML += '</table>';
-            tableContainer.innerHTML = tableHTML;
-
-            // Mostrar el botón al seleccionar un radio
-            const radios = document.querySelectorAll('input[name="opcion"]');
-            const guardarCambiosBtn = document.getElementById('guardarCambios');
-            radios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    guardarCambiosBtn.style.display = 'inline-block';
-                });
-            });
-
-        });
-    </script>
     <!-- hacemos la conexion a scripts.py-->
-    <script src="scripts.py"></script>
+    <script src="scripts.js"></script>
 </body>
 
 <footer>

@@ -14,7 +14,7 @@ def indice():
 
 
 @main.route('/bodega/actualizables')
-def importActVinosBodega(): # Funcion para obtener las bodegas que necesitan actualizarse
+def importarActVinosBodega(): # Funcion para obtener las bodegas que necesitan actualizarse
     bodegas = gestor.buscarBodegas()
     return jsonify(bodegas)
 

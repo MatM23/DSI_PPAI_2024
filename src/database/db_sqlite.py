@@ -2,11 +2,13 @@ from datetime import datetime
 import sqlite3
 
 def inicializarBase():
-    conexion = sqlite3.connect('ppai.db')  # Conexión a la base de datos en memoria
+    conexion = sqlite3.connect('./src/database/ppai.db')  # Conexión a la base de datos en memoria
     cursor = conexion.cursor()
 
+    cursor.execute("DELETE FROM bodegas")
+
     # Crear las tablas en la base de datos en memoria
-    cursor.execute('''CREATE TABLE bodegas (
+    cursor.execute('''CREATE TABLE IF NOT EXISTS bodegas (
                           id INTEGER PRIMARY KEY AUTOINCREMENT,
                           nombre TEXT,
                           descripcion TEXT,
@@ -16,7 +18,7 @@ def inicializarBase():
                           vinosNombres TEXT,
                           FOREIGN KEY (vinosNombres) REFERENCES vinos(nombre)
                       )''')
-    cursor.execute('''CREATE TABLE vinos (
+    cursor.execute('''CREATE TABLE IF NOT EXISTS vinos (
                           id INTEGER PRIMARY KEY AUTOINCREMENT,
                           nombre TEXT,
                           anada INTEGER,
@@ -32,19 +34,19 @@ def inicializarBase():
                           FOREIGN KEY (varietalNombre) REFERENCES varietal(nombre)
                       )''')
     
-    cursor.execute('''CREATE TABLE maridaje (
+    cursor.execute('''CREATE TABLE IF NOT EXISTS maridaje (
                           id INTEGER PRIMARY KEY AUTOINCREMENT,
                           nombre TEXT,
                           descripcion TEXT
                       )''')
     
-    cursor.execute('''CREATE TABLE tipoUva (
+    cursor.execute('''CREATE TABLE IF NOT EXISTS tipoUva (
                           id INTEGER PRIMARY KEY AUTOINCREMENT,
                           nombre TEXT,
                           descripcion TEXT
                       )''')
     
-    cursor.execute('''CREATE TABLE varietal (
+    cursor.execute('''CREATE TABLE IF NOT EXISTS varietal (
                           id INTEGER PRIMARY KEY AUTOINCREMENT,
                           descripcion TEXT,
                           porcentajeComposicion REAL,
@@ -52,7 +54,7 @@ def inicializarBase():
                           FOREIGN KEY(tipoUvaNombre) REFERENCES tipoUva(nombre)
                       )''')
     
-    cursor.execute('''CREATE TABLE enofilo (
+    cursor.execute('''CREATE TABLE IF NOT EXISTS enofilo (
                           id INTEGER PRIMARY KEY AUTOINCREMENT,
                           nombre TEXT,
                           apellido TEXT,
@@ -63,14 +65,14 @@ def inicializarBase():
                           FOREIGN KEY(nombreUsuario) REFERENCES siguiendo(nombre)
                       )''')
     
-    cursor.execute('''CREATE TABLE usuario (
+    cursor.execute('''CREATE TABLE IF NOT EXISTS usuario (
                           id INTEGER PRIMARY KEY AUTOINCREMENT,
                           nombre TEXT,
                           contraseña TEXT,
                           premium TEXT
                       )''')
     
-    cursor.execute('''CREATE TABLE siguiendo (
+    cursor.execute('''CREATE TABLE IF NOT EXISTS siguiendo (
                           id INTEGER PRIMARY KEY AUTOINCREMENT,
                           tipoSiguiendo TEXT,
                           bodegaOEnofilo TEXT,
@@ -84,38 +86,38 @@ def inicializarBase():
     
     # Insertar datos de ejemplo en la base de datos en memoria
     # BODEGAS
-    cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaCentral', 'oishfs', datetime(2024, 3, 19).date(), 4, 'hola', 'Vino Tinto'))
+    cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)",
+                    ('Los Viñedos', 'Bodega familiar dedicada a la producción de vinos artesanales.', datetime(2024,5,19).date(), 60, 'Fundada en 1980 por la familia García, Los Viñedos ha sido reconocida por sus vinos de alta calidad.', 'Malbec Reserva, Cabernet Sauvignon Gran Reserva, Chardonnay Premium'))
     
     cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaEste', 'oishfs', datetime(2024, 2, 19).date(), 4, 'hola', 'Vino Tinto'))
+               ('El Olivo', 'Bodega ecológica comprometida con la sostenibilidad y el medio ambiente.', datetime(2024,4,20).date(), 90, 'Inaugurada en 1995, El Olivo se destaca por su enfoque en la producción de vinos orgánicos.', 'Tempranillo Orgánico, Garnacha Rosé, Sauvignon Blanc Eco'))
     
     cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaOeste', 'oishfs', datetime(2024, 1, 19).date(), 4, 'hola', 'Vino Tinto'))
+               ('La Montaña', 'Bodega boutique situada en las montañas, especializada en vinos de altura.', datetime(2023,3,10).date(), 90, 'Desde 2002, La Montaña ha cautivado a los amantes del vino con su singularidad y carácter.', 'Malbec de Altura, Syrah Reserva Especial, Torrontés de Montaña'))
     
     cursor.execute("INSERT INTO bodegas (nombre, descripcion, fechaUltimaActualizacion, periodoActualizacion, historia, vinosNombres) VALUES (?, ?, ?, ?, ?, ?)", 
-               ('BodegaSur', 'oishfs', datetime(2024, 5, 19).date(), 6, 'hola', 'Vino Tinto'))
+               ('El Roble', 'Bodega tradicional con más de un siglo de historia en la elaboración de vinos tintos.', datetime(2024,2,5).date(), 30, 'Desde 1890, ha sido un referente en la producción de Malbec y Cabernet Sauvignon.', 'Gran Reserva Centenario, Malbec Clásico, Merlot Roble Viejo'))
     
 
     # VINOS
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,12,16).date(), 'imagen.jpg', 255, 8, 'BodegaCentral', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,12,16).date(), 'imagen.jpg', 255, 8, 'Los Viñedos', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,7,15).date(), 'imagen.jpg', 50, 10,'BodegaCentral', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,7,15).date(), 'imagen.jpg', 50, 10,'Los Viñedos', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,5,14).date(), 'imagen.jpg', 150, 4,'BodegaSur', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,5,14).date(), 'imagen.jpg', 150, 4,'El Olivo', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,1,13).date(), 'imagen.jpg', 450, 7,'BodegaEste', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,1,13).date(), 'imagen.jpg', 450, 7,'El Olivo', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,6,12).date(), 'imagen.jpg', 350, 1,'BodegaSur', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,6,12).date(), 'imagen.jpg', 350, 1,'La Montaña', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,3,11).date(), 'imagen.jpg', 300, 7,'BodegaOeste', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,3,11).date(), 'imagen.jpg', 300, 7,'La Montaña', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,3,10).date(), 'imagen.jpg', 100, 6,'BodegaOeste', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,3,10).date(), 'imagen.jpg', 100, 6,'El Roble', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,5,9).date(), 'imagen.jpg', 500, 10,'BodegaEste', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,5,9).date(), 'imagen.jpg', 500, 10,'El Roble', 'Papas', 'Malbec'))
     cursor.execute("INSERT INTO vinos (nombre, anada, fechaActualizacion, imagenEtiqueta, precioARS, notaDeCataBodega, bodegaNombre, maridajeNombre, varietalNombre) VALUES (?,?,?,?,?,?,?,?,?)",
-                   ('Vino tinto', 2024, datetime(2024,6,8).date(), 'imagen.jpg', 400, 4,'BodegaCentral', 'Papas', 'Malbec'))
+                   ('Vino tinto', 2024, datetime(2024,6,8).date(), 'imagen.jpg', 400, 4,'La Montaña', 'Papas', 'Malbec'))
     
     
     #MARIDAJES
@@ -221,6 +223,8 @@ def inicializarBase():
 
 
     conexion.commit()
-    return conexion
+    conexion.close()
 
-inicializarBase()
+def getConexion():
+    conn = sqlite3.connect('./src/database/ppai.db') 
+    return conn

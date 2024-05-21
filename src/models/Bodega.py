@@ -1,17 +1,17 @@
 
 from dateutil.relativedelta import *
-from models.Vino import Vino
-from datetime import datetime
+from models import Vino
+from datetime import datetime, date, timedelta
 
 class Bodega():
-    def init(self, nombre, descripcion, historia, fechaUltimaActualizacion, periodoActualizacion, vinos):
+    def __init__(self, nombre, descripcion, historia, fechaUltimaActualizacion, periodoActualizacion, vinos):
 
         self._nombre = nombre
         self._descripcion = descripcion
         self._fechaUltimaActualizacion = fechaUltimaActualizacion
         self._periodoActualizacion = periodoActualizacion
         self._historia = historia
-        self._vinos = []
+        self._vinos = vinos
 
     def toJSON(self):
         return {
@@ -19,7 +19,8 @@ class Bodega():
             "descripcion" : self.getDescripcion(),
             "fechaUltimaActualizacion" : self.getFechaUltimaActualizacion(),
             "historia" : self.getHistoria(),
-            "periodoActualizacion" : self.getPeriodoActualizacion()
+            "periodoActualizacion" : self.getPeriodoActualizacion(),
+            "vinos" : self.getVinos()
         }
 
     def getNombre(self):
@@ -56,9 +57,10 @@ class Bodega():
     def setHistoria(self, valor):
         self._historia = valor
 
-    def esParaActualizar(self, fechaActual): # 
-        fecha = self.getFechaUltimaActualizacion() + relativedelta(months=self.getPeriodoActualizacion())
-        return fecha < fechaActual
+    def esParaActualizar(self, fechaActual): 
+        if fechaActual > ((datetime.strptime(self.getFechaUltimaActualizacion(), "%Y-%m-%d").date()) + timedelta(days=int(self.getPeriodoActualizacion()))):
+            return True
+        return False
     
     # Relacion con Vino siendo este una coleccion
     def getVinos(self):

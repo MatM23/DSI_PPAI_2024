@@ -1,6 +1,6 @@
 class TipoUva():
 
-    def init(self, descripcion, nombre):
+    def __init__(self, descripcion, nombre):
         self._nombre = nombre
         self._descripcion = descripcion
 

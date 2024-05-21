@@ -1,6 +1,6 @@
-from models import Bodega
-from datetime import datetime
-from database import db_sqlite
+from models.Bodega import Bodega
+from datetime import datetime, date
+from database.db_sqlite import inicializarBase, getConexion
 from models import Maridaje
 from models import TipoUva
 from models import Enofilo
@@ -17,19 +17,24 @@ class Gestor():
             raise TypeError("Debe ser una instancia de la clase Bodega")
         cls.bodegas.append(bodega)
 
-    def getFechaActual():
-        fechaActual = datetime.now
+    def getFechaActual(self):
+        fechaActual = date.today()
         return fechaActual
 
     
     def buscarBodegas(self):
-        conn = sqlite3.connect('ppai.db') 
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM Bodega")
-        bodegasTodas = cursor.fetchall()
         bodegasActualizar = []
         fechaActual = self.getFechaActual()
-        for bodega in bodegasTodas:
+
+        conn = getConexion()
+        
+        cursor = conn.cursor()
+        cursor.execute("SELECT nombre, descripcion, historia, fechaUltimaActualizacion, periodoActualizacion, vinosNombres FROM bodegas")
+        filasBaseDatos = cursor.fetchall()
+        
+        for fila in filasBaseDatos:
+            bodega = Bodega(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5])
+
             if bodega.esParaActualizar(fechaActual):
                     bodegasActualizar.append(bodega.getNombre())
 

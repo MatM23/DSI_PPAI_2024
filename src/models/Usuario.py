@@ -1,6 +1,6 @@
 class Usuario():
 
-    def init(self, nombre, contrasena, premium):
+    def __init__(self, nombre, contrasena, premium):
         self._nombre = nombre
         self._contrasena = contrasena
         self._premium = premium

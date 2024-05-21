@@ -1,9 +1,9 @@
 
-from models.Bodega import Bodega
-from models.Enofilo import Enofilo
+from models import Bodega
+from models import Enofilo
 
 class Siguiendo():
-    def init(self, fechaFin, fechaInicio, bodegaOEnofilo, tipoSiguiendo):
+    def __init__(self, fechaFin, fechaInicio, bodegaOEnofilo, tipoSiguiendo):
 
         self._fechaFin = fechaFin
         self._fechaInicio = fechaInicio

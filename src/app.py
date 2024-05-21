@@ -1,7 +1,9 @@
 from flask import Flask
 from config import config
+from flask_cors import CORS
 from database.db_sqlite import inicializarBase
 app = Flask(__name__)
+CORS(app)
 
 # Rutas a importar
 from routes import PantallaImportadorActBodega
