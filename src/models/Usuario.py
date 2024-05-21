@@ -15,6 +15,9 @@ class Usuario():
     def getNombre(self):
         return self._nombre
 
+    def mostrarNombre(self):
+        print(self._nombre)
+        
     def setNombre(self, valor):
         if not isinstance(valor, str):
             raise ValueError("El nombre debe ser una cadena")

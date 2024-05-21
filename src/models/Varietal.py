@@ -1,8 +1,8 @@
-from models import TipoUva
+from models.TipoUva import TipoUva
 
-class Varietal(): #FALTA RELACIONARLO CON TIPOUVA, VER METODO GETTIPOUVA
-
+class Varietal():
     def init(self, descripcion, porcentajeComposicion):
+
         self._descripcion = descripcion
         self._porcentajeComposicion = porcentajeComposicion
 
@@ -38,7 +38,6 @@ class Varietal(): #FALTA RELACIONARLO CON TIPOUVA, VER METODO GETTIPOUVA
     def getNombreTipoUva(self):
         return self._tipoUva.getNombre()
     
-    # Ver! Ya hay un método constructor arriba llamado "Init"
     def new(descripcion, porcentajeComposicion):
        varietal = Varietal()
        varietal.init(descripcion, porcentajeComposicion)

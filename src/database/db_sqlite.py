@@ -2,7 +2,7 @@ from datetime import datetime
 import sqlite3
 
 def inicializarBase():
-    conexion = sqlite3.connect(':memory:')  # Conexión a la base de datos en memoria
+    conexion = sqlite3.connect('ppai.db')  # Conexión a la base de datos en memoria
     cursor = conexion.cursor()
 
     # Crear las tablas en la base de datos en memoria
@@ -232,6 +232,6 @@ def inicializarBase():
 
 
     conexion.commit()
-    conexion.close()
+    return conexion
 
 inicializarBase()

@@ -10,10 +10,8 @@ class Enofilo():
         self._apellido = apellido
         self._imagenPerfil = imagenPerfil
         self._siguiendo = []
-        self.setSiguiendo(siguiendo)
         self._usuario = usuario
         self._vino = []
-        self.setVino(vino)
 
     def toJSON(self):
         return {
@@ -96,3 +94,4 @@ class Enofilo():
         for seguidor in self._siguiendo:
             if seguidor.sosDeBodega(nombreBodega):
                 return True
+

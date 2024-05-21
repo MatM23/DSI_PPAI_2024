@@ -8,10 +8,7 @@ from models import Siguiendo
 from models import Vino
 import sqlite3
 
-
-class Gestor:
-    conexion = sqlite3.connect(':memory:')  # Conexión a la base de datos en memoria
-    cursor = conexion.cursor()
+class Gestor():
     bodegas = []  # Atributo de clase para almacenar todas las bodegas
 
     @classmethod 
@@ -24,20 +21,28 @@ class Gestor:
         fechaActual = datetime.now
         return fechaActual
 
-    @classmethod
+    
     def buscarBodegas(self):
-        bodegasActualizar = []
+        conn = sqlite3.connect('ppai.db') 
+        cursor = conn.cursor()
         cursor.execute("SELECT * FROM Bodega")
         bodegasTodas = cursor.fetchall()
+        bodegasActualizar = []
         fechaActual = self.getFechaActual()
         for bodega in bodegasTodas:
             if bodega.esParaActualizar(fechaActual):
-                bodegasActualizar.append(bodega.getNombre())
-                ## ¿bodegaParaActualizar=Bodega(fila[0], fila[1], fila[2], fila[3])?
+                    bodegasActualizar.append(bodega.getNombre())
+
+        conn.close()
         return bodegasActualizar
     
+    
+    
+    
+
     def definirVinosAActualizar(self, nombreBodega, vinos):
-        bodega = cursor.execute("SELECT * FROM Bodega WHERE nombre = ?", (nombreBodega,))
+        cursor.execute("SELECT * FROM Bodega WHERE nombre = ?", (nombreBodega,))
+        bodega = cursor.fetchone()
         vinosActualizar = []
         for vino in vinos:
             if bodega.tieneVino(nombreBodega):
@@ -46,15 +51,19 @@ class Gestor:
     
     # funcion para obtener actualizaciones de bodega usando la base de datos
     def obtenerActualizacionesBodega(self, nombreBodega):
-        bodega = cursor.execute("SELECT * FROM Bodega WHERE nombre = ?", (nombreBodega,))
+        cursor.execute("SELECT * FROM Bodega WHERE nombre = ?", (nombreBodega,))
+        bodega = cursor.fetchone()
         return bodega.getVinos() #tenemos q definir que vinos y de donde vienen 
     
+
     # funcion para actualizar fecha de actualizacion de la bodega seleccionada
     def actualizarFechaActualizacionBodega(self, nombreBodega):
         fechaActual = datetime.now()
-        bodega = cursor.execute("SELECT * FROM Bodega WHERE nombre = ?", (nombreBodega,))
+        cursor.execute("SELECT * FROM Bodega WHERE nombre = ?", (nombreBodega,))
+        bodega = cursor.fetchone()
         bodega.setFechaUltimaActualizacion(fechaActual)
         
+    
     def buscarMaridaje(maridaje):
         maridajeBuscado = Maridaje.sosMaridaje(maridaje)
         return maridajeBuscado
@@ -68,6 +77,7 @@ class Gestor:
         for vino in vinos:
             Bodega.actualizarVino(vino)
 
+
     # Funcion para buscar seguidores de la bodega seleccionada
     def buscarSeguidoresBodega(self, nombreBodega):
         seguidores = []
@@ -75,6 +85,7 @@ class Gestor:
         for enofilo in enofilos:
             if enofilo.sosSeguidorBodega(nombreBodega):
                 seguidores.getNombre().append()
+
     
     def crearVino(anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega, maridaje, varietal):
         vino = Vino.new(anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega, maridaje, varietal)

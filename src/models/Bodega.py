@@ -1,5 +1,6 @@
+
 from dateutil.relativedelta import *
-from models import Vino
+from models.Vino import Vino
 from datetime import datetime
 
 class Bodega():
@@ -89,3 +90,4 @@ class Bodega():
             vino.setImagenEtiqueta(vino.getImagenEtiqueta())
             vino.setNotaDeCataBodega(vino.getNotaDeCataBodega())
             vino.setPrecioARS(vino.getPrecioARS())
+    

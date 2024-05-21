@@ -14,6 +14,6 @@ if __name__ == "__main__":
     app.config.from_object(config['development'])
     inicializarBase()
     # Blueprints / planos
-    app.register_blueprint(PantallaImportadorActBodega.main, url_prefix='/api/bodega')
+    app.register_blueprint(PantallaImportadorActBodega.main, url_prefix='/api')
 
     app.run()

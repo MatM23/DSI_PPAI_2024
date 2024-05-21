@@ -1,14 +1,15 @@
-from models import Bodega
-from models import Enofilo
+
+from models.Bodega import Bodega
+from models.Enofilo import Enofilo
 
 class Siguiendo():
-
     def init(self, fechaFin, fechaInicio, bodegaOEnofilo, tipoSiguiendo):
 
         self._fechaFin = fechaFin
         self._fechaInicio = fechaInicio
         self._bodegaOEnofilo = bodegaOEnofilo
         self._tipoSiguiendo = tipoSiguiendo
+
 
     def toJSON(self):
         return {
@@ -28,8 +29,6 @@ class Siguiendo():
     def setFechaFin(self, valor):
         self._fechaFin = valor
 
-    # ¿? =================
-    
     def getNombre(self):
             return self._bodegaOEnofilo.getNombre()
     
@@ -37,8 +36,6 @@ class Siguiendo():
         if not isinstance(valor, str):
             raise ValueError("El nombre debe ser una cadena")
         self._nombre = valor 
-    
-    # ====================
 
     def getTipo(self):
         return self._tipoSiguiendo

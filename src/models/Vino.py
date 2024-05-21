@@ -1,11 +1,11 @@
-from models import Bodega
-from models import Maridaje
+from models.Bodega import Bodega
+from models.Maridaje import Maridaje
 from dateutil.relativedelta import *
-from models import Varietal
+from models.Varietal import Varietal
 
 class Vino():
-
     def init(self, anada, fechaActualizacion, imagenEtiqueta, nombre, notaDeCataBodega, precioARS, bodega, maridaje, varietal):
+
         self._nombre = nombre
         self._anada = anada
         self._fechaActualizacion = fechaActualizacion
@@ -14,9 +14,7 @@ class Vino():
         self._precioARS = precioARS
         self._bodega = bodega
         self._maridaje = []
-        self.setMaridaje(maridaje)
         self._varietal = []
-        self.setVarietal(varietal)
 
     def toJSON(self):
         return {
@@ -135,4 +133,5 @@ class Vino():
     def crearVarietal(descripcion, porcentajeComposicion):
         varietal = Varietal.new(descripcion, porcentajeComposicion)
         return varietal
+
 
