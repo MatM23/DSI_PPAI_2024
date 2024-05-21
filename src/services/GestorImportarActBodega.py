@@ -6,7 +6,7 @@ from models import Maridaje
 from models import TipoUva
 from models import Enofilo
 from models import Siguiendo
-from models import Vino
+from models.Vino import Vino
 import sqlite3
 from flask import jsonify
 
@@ -52,11 +52,11 @@ class Gestor():
         filasBaseDatosVinos = cursor.fetchall()
  
         for fila in filasBaseDatosVinos:
-            vino = Vino.Vino(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8])
+            vino = Vino(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8])
             self.actualizaciones.append(vino)
         
         conexion.close()
-        self.definirVinosAActualizar(bodegaNombre)
+        return self.definirVinosAActualizar(bodegaNombre)
         
 
     def definirVinosAActualizar(self, bodegaNombre):
@@ -66,9 +66,9 @@ class Gestor():
         bodega = Bodega(filaBaseDeDatosBodega[0], filaBaseDeDatosBodega[1], filaBaseDeDatosBodega[2], filaBaseDeDatosBodega[3], filaBaseDeDatosBodega[4], filaBaseDeDatosBodega[5])
         vinosActualizar = []
         for vino in self.actualizaciones:
-            if bodega.tieneVino(bodegaNombre):
+            if bodega.tieneVino(vino) == True:
                 vinosActualizar.append(vino)
-
+            
         conn.close()
         return vinosActualizar
     

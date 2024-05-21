@@ -1,6 +1,6 @@
 
 from dateutil.relativedelta import *
-from models import Vino
+from models.Vino import Vino
 from datetime import datetime, date, timedelta
 from database.db_sqlite import getConexion
 
@@ -80,18 +80,15 @@ class Bodega():
     
     
     # funcion para saber si la bodega tiene un vino utilizando la funcion esDeBodega de la clase Vino
-    def tieneVino(self, nombreBodega): 
+    def tieneVino(self, nombreVino): 
         conn = getConexion()
         cursor = conn.cursor()
-        vinoEsta = []
-        stringVinosPropios = self.getVinos().split(',')
-        for stringVino in stringVinosPropios:
-            filaBaseDatosVino= cursor.execute("SELECT nombre, anada, fechaActualizacion, imagenEtiqueta, notaDeCataBodega, precioARS, bodegaNombre, maridajeNombre, varietalNombre FROM vinos WHERE nombre=?", (stringVino,)).fetchone()
-            vino = Vino.Vino(filaBaseDatosVino[0], filaBaseDatosVino[1], filaBaseDatosVino[2], filaBaseDatosVino[3], filaBaseDatosVino[4], filaBaseDatosVino[5], filaBaseDatosVino[6], filaBaseDatosVino[7], filaBaseDatosVino[8])
-            if vino.esDeBodega(nombreBodega):
-                vinoEsta.append(True)
-            vinoEsta.append(False)
-        return vinoEsta
+        
+        filaBaseDatosVino= cursor.execute("SELECT nombre, anada, fechaActualizacion, imagenEtiqueta, notaDeCataBodega, precioARS, bodegaNombre, maridajeNombre, varietalNombre FROM vinos WHERE nombre=?", (nombreVino)).fetchone()
+        vino = Vino(filaBaseDatosVino[0], filaBaseDatosVino[1], filaBaseDatosVino[2], filaBaseDatosVino[3], filaBaseDatosVino[4], filaBaseDatosVino[5], filaBaseDatosVino[6], filaBaseDatosVino[7], filaBaseDatosVino[8])
+        if vino.esDeBodega(self.getNombre()):
+            return True
+        return False
 
     def actualizarVino(self, vino):
         fechaActual = datetime.now()

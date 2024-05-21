@@ -70,18 +70,8 @@ class Vino():
         self._nombre = valor
 
     # funcion para saber si el vino es de una bodega enviada por parametro
-    def esDeBodega(self, nombreDeBodegaABuscar): 
-        conn = getConexion()
-        cursor = conn.cursor()
-        stringBodega = self.getBodega()
-    
-        filaBaseDatosBodega= cursor.execute("SELECT nombre, descripcion, historia, fechaUltimaActualizacion, periodoActualizacion, vinosNombres FROM bodegas WHERE nombre=?", (stringBodega,)).fetchone()
-        bodega = Bodega.Bodega(filaBaseDatosBodega[0], filaBaseDatosBodega[1], filaBaseDatosBodega[2], filaBaseDatosBodega[3], filaBaseDatosBodega[4], filaBaseDatosBodega[5])
-        conn.close()
-        if nombreDeBodegaABuscar == bodega.getNombre():
-            
-            return True
-        return False
+    def esDeBodega(self, nombreBodega): 
+        return self.getBodega() == nombreBodega
 
     # funcion para saber si el vino debe actualizarse, comparando fecha actual y fecha actualizacion
     def esActualizable(self, fechaActual):
